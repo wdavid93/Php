@@ -6,13 +6,15 @@ namespace App\Entity;
 // Importation des classes nécessaires
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 // Déclaration de la classe User avec les attributs de Doctrine ORM
 #[ORM\Entity(repositoryClass: UserRepository::class)] // Spécifie que cette entité utilise UserRepository
 #[ORM\Table(name: '`user`')] // Déclare le nom de la table 'user' en échappant les caractères réservés
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])] // Ajoute une contrainte unique sur la colonne 'email'
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')] // Ajoute une contrainte unique sur la colonne 'email'
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     // Déclaration de l'ID de l'utilisateur
@@ -43,7 +45,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     // Déclaration du prénom de l'utilisateur
     #[ORM\Column(length: 255)] // Indique que c'est une colonne de la table avec une longueur maximale de 255 caractères
-    private ?string $firstname = null; // Déclaration de la variable $firstname comme une chaîne nullable
+    private ?string $firstname = null;
+
+    #[ORM\Column]
+    private bool $isVerified = false; // Déclaration de la variable $firstname comme une chaîne nullable
 
     // Méthode pour obtenir l'ID de l'utilisateur
     public function getId(): ?int
@@ -148,6 +153,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): static
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
 
         return $this;
     }
