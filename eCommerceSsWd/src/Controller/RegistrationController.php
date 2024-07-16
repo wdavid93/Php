@@ -83,12 +83,12 @@ class RegistrationController extends AbstractController
             // En cas d'erreur, ajoute un message flash d'erreur et redirige vers 'app_register'
             $this->addFlash('verify_email_error', $exception->getReason());
 
-            return $this->redirectToRoute('app_register');
+            return $this->redirectToRoute('app_login');
         }
 
         // En cas de succès, ajoute un message flash de succès et redirige vers 'app_register'
         $this->addFlash('success', 'Votre adresse e-mail est bien vérifiée / Your email address has been verified.');
 
-        return $this->redirectToRoute('app_register');
+        return $this->redirectToRoute('app_login');
     }
 }

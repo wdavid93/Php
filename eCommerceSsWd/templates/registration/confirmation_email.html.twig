@@ -1,11 +1,16 @@
-<h1>Hi! Please confirm your email!</h1>
+{# Titre principal de l'email, en anglais et en français #}
+<h1>Hi! Please confirm your email! / Bonjour! Veuillez confirmer votre adresse email!</h1>
 
 <p>
-    Please confirm your email address by clicking the following link: <br><br>
-    <a href="{{ signedUrl|raw }}">Confirm my Email</a>.
-    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
+    {# Invitation à confirmer l'adresse email, en anglais et en français #}
+    Please confirm your email address by clicking the following link: / Veuillez confirmer votre adresse email en cliquant sur le lien suivant : <br><br>
+    {# Lien pour confirmer l'email, avec l'URL signée brute (raw) pour éviter l'échappement #}
+    <a href="{{ signedUrl|raw }}">Confirm my Email / Confirmer mon adresse email</a>.
+    {# Message indiquant que le lien expirera, avec la traduction et les données de la clé d'expiration, en anglais et en français #}
+    This link will expire in {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}. / Ce lien expirera dans {{ expiresAtMessageKey|trans(expiresAtMessageData, 'VerifyEmailBundle') }}.
 </p>
 
 <p>
-    Cheers!
+    {# Salutation de fin en anglais et en français #}
+    Cheers! / Cordialement!
 </p>
