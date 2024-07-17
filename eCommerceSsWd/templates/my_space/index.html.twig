@@ -1,37 +1,58 @@
+{# Étend le template de base #}
 {% extends 'base.html.twig' %}
 
+{# Définit le bloc de titre de la page avec le contenu 'Mon espace' #}
 {% block title %}Mon espace{% endblock %}
 
+{# Définit le bloc de corps de la page #}
 {% block body %}
+
+    {# Boucle sur les messages flash de type 'verify_email_error' et les affiche dans une alerte de danger #}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
+
+    {# Boucle sur les messages flash de type 'success' et les affiche dans une alerte de succès #}
     {% for flash_success in app.flashes('success') %}
         <div class="alert alert-success" role="alert">{{ flash_success }}</div>
     {% endfor %}
 
+    {# Affiche un message de bienvenue avec le prénom de l'utilisateur #}
     <h1>Bonjour {{ firstname }} !</h1>
     <br>
+    
+    {# Vérifie si l'adresse email a été vérifiée et affiche un message en conséquence #}
     {% if verified is same as true %}
-    <div class="text">votre adresse email a été vérifiée ✅</div>
+        <div class="text">Votre adresse email a été vérifiée ✅</div>
     {% elseif verified is same as false %}
-    <div class="text">votre adresse email n'a pas été vérifiée ❌</div>
+        <div class="text">Votre adresse email n'a pas été vérifiée ❌</div>
     {% endif %}
     <br>
+    
+    {# Affiche un titre pour les données personnelles #}
     <h2>Vos données personnelles :</h2>
     <br>
     <br>
+    
+    {# Affiche le nom et le prénom de l'utilisateur #}
     <p>{{ name }} {{ firstname }}</p>
+    
+    {# Affiche l'adresse email de l'utilisateur #}
     <p>{{ email }}</p>
     <br>
     <br>
+    
+    {# Vérifie si l'utilisateur a certains rôles et affiche les factures s'il en a #}
     {% if is_granted('ROLE_CUSTOMER') or is_granted('ROLE_CUSTOMER_FORMATION') or is_granted('ROLE_ADMIN') %}
         <h2>Votre facture</h2>
         <br>
+        
+        {# Vérifie si l'utilisateur n'a pas encore de factures et affiche un message en conséquence #}
         {% if invoices is empty %}
             <p>Vous n'avez pas encore de facture</p>
             <br>
         {% else %}
+            {# Boucle sur les factures de l'utilisateur et les affiche dans une liste ordonnée #}
             <ol>
                 {% for invoice in invoices %}
                     <li class="text">{{ invoice }}</li>
@@ -40,15 +61,21 @@
             <br>
         {% endif %}
     {% endif %}
+    
+    {# Vérifie si l'utilisateur a certains rôles et affiche la section de téléchargement de la formation #}
     {% if is_granted('ROLE_CUSTOMER_FORMATION') or is_granted('ROLE_ADMIN') %}
         <h2>Votre formation</h2>
         <br>
         <br>
+        
+        {# Bouton pour télécharger la formation #}
         <div class="text-center">
-            <a class="btn btn-success" href="{{asset('formationdev.zip')}}" download="formation.zip">Télécharger la formation</a>
+            <a class="btn btn-success" href="{{ asset('formationdev.zip') }}" download="formation.zip">Télécharger la formation</a>
         </div>
     {% endif %}
+    
+    {# Vérifie si l'utilisateur a le rôle d'admin et affiche un lien pour gérer les produits #}
     {% if is_granted('ROLE_ADMIN') %}
-        <a href="{{ path('app_product_index')}}">gérer les produits</a>
+        <a href="{{ path('app_product_index') }}">Gérer les produits</a>
     {% endif %}
 {% endblock %}

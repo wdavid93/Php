@@ -1,21 +1,69 @@
+{# Extends le template de base #}
 {% extends 'base.html.twig' %}
 
+{# Définit le bloc de titre avec le contenu 'CGV' #}
 {% block title %}CGV{% endblock %}
 
+{# Définit le bloc de corps de la page #}
 {% block body %}
-<h1>Conditions générales de vente</h1>
-      <br/>
-      <ol>
+    {# Titre principal de la page #}
+    <h1>Conditions générales de vente</h1>
+    <br/>
+    <ol>
+        {# Élément de liste pour la licence GNU avec un lien vers la page de licence #}
         <li class="text">Licence GNU <a aria-current="page" href="{{ path('app_licence')}}">Licence</a></li>
+        
+        {# Élément de liste affichant le prix unitaire de la formation #}
         <li class="text">Le prix unitaire de la {{ formation.name }} est de {{ formation.price }} {{ formation.currency }}.</li>
+        
+        {# Élément de liste affichant le prix du soutien #}
         <li class="text">Le prix d'un {{ soutient.name }} est de {{ soutient.price}} {{ soutient.currency }}.</li>
-        <li class="text">Le paiement sera efféctué à {{ name }} dont voici les coordonées : Nom de la micro-entreprise : {{ company }}, numéro de siret : {{ siret }}, code APE : {{ ape }}, adresse : {{ address }}, adresse e-mail : {{ email }}, numéro de téléphone : {{ telephone }}</li>
-        <li class="text">Mode de paiement : le paiement s'effectura par carte bancaire uniquement.</li>
-        <li class="text">La {{ formation.name }} étant un dossier numérique et étant téléchargeable immédiatement après le paiement, vous devez renoncer à votre délai de rétractation de 14 jours et ne pouvez pas demander un remboursement.</li>
-        <li class="text">Les {{ soutient.name }} sont un service en ligne en live. Vous pouvez vous rétracter et demander un remboursement en cas d'annulation du service.
-        <li class="text">Si vous avez acheté la {{ formation.name }} : une fois le paiement effectué et valide, vous recevrez un e-mail contenant la facture et vous pourrez télécharger la {{ formation.name }} en vous rendant sur la page "<a href="{{ path('app_my_space')}}">mon espace</a>".</li>
-        <li>Si vous avez acheté un ou des {{ soutient.name }} : une fois le paiement effectué et valide, vous recevrez un email dans les 72h par Mathieu Guyot de MG Production pour fixer la date et l'heure du cours qui se détoulera en live et en ligne via le logiciel Zoom.</li>
+        
+        {# Élément de liste avec les détails de paiement et les informations de l'entreprise #}
+        <li class="text">
+            Le paiement sera effectué à {{ name }} dont voici les coordonnées : 
+            Nom de la micro-entreprise : {{ company }}, 
+            numéro de siret : {{ siret }}, 
+            code APE : {{ ape }}, 
+            adresse : {{ address }}, 
+            adresse e-mail : {{ email }}, 
+            numéro de téléphone : {{ telephone }}
+        </li>
+        
+        {# Élément de liste spécifiant le mode de paiement #}
+        <li class="text">Mode de paiement : le paiement s'effectuera par carte bancaire uniquement.</li>
+        
+        {# Élément de liste concernant la nature numérique de la formation et la renonciation au délai de rétractation #}
+        <li class="text">
+            La {{ formation.name }} étant un dossier numérique et étant téléchargeable immédiatement après le paiement, 
+            vous devez renoncer à votre délai de rétractation de 14 jours et ne pouvez pas demander un remboursement.
+        </li>
+        
+        {# Élément de liste concernant le soutien en ligne et l'option de rétractation #}
+        <li class="text">
+            Les {{ soutient.name }} sont un service en ligne en live. 
+            Vous pouvez vous rétracter et demander un remboursement en cas d'annulation du service.
+        </li>
+        
+        {# Élément de liste détaillant le processus après l'achat de la formation #}
+        <li class="text">
+            Si vous avez acheté la {{ formation.name }} : une fois le paiement effectué et validé, 
+            vous recevrez un e-mail contenant la facture et vous pourrez télécharger la {{ formation.name }} 
+            en vous rendant sur la page "<a href="{{ path('app_my_space')}}">mon espace</a>".
+        </li>
+        
+        {# Élément de liste détaillant le processus après l'achat du soutien #}
+        <li>
+            Si vous avez acheté un ou des {{ soutient.name }} : une fois le paiement effectué et validé, 
+            vous recevrez un email dans les 72h par Mathieu Guyot de MG Production pour fixer la date et l'heure du cours 
+            qui se déroulera en live et en ligne via le logiciel Zoom.
+        </li>
+        
+        {# Élément de liste spécifiant le taux de TVA #}
         <li class="text">La TVA est {{ tva }}.</li>
-        <li class="text">{{ name }} est le responsable  du site web et {{ host}} en est l'hébergeur.</li>
-      </ol>
+        
+        {# Élément de liste spécifiant le responsable du site web et l'hébergeur #}
+        <li class="text">{{ name }} est le responsable du site web et {{ host }} en est l'hébergeur.</li>
+    </ol>
 {% endblock %}
+

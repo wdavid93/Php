@@ -1,17 +1,30 @@
+{# Extends le template de base #}
 {% extends 'base.html.twig' %}
 
+{# Définit le bloc de titre avec le contenu 'Contact' #}
 {% block title %}Contact{% endblock %}
 
+{# Définit le bloc de corps de la page #}
 {% block body %}
 
+    {# Boucle sur les messages flash de type 'send' #}
     {% for message in app.flashes('send') %}
+      {# Affiche chaque message flash dans une alerte de succès #}
       <div class="alert alert-success">
         {{ message }}
       </div>
     {% endfor %}
+
+    {# Démarre le formulaire de contact #}
     {{ form_start(contactform) }}
-      {{form_row(contactform.message)}}
-        <input class="btn btn-primary" type="submit" />
+
+      {# Affiche le champ 'message' du formulaire de contact #}
+      {{ form_row(contactform.message) }}
+      
+      {# Bouton de soumission du formulaire #}
+      <input class="btn btn-primary" type="submit" />
+
+    {# Termine le formulaire de contact #}
     {{ form_end(contactform) }}
 
 {% endblock %}
