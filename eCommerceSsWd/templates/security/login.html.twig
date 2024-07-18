@@ -8,6 +8,10 @@
 
 {# Début du bloc body, qui sera inséré dans la section corps du template de base #}
 {% block body %}
+    {# rajout A VERIFIER #}
+    {% for flash_sucess in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ flash_success }}</div>
+    {% endfor %}
     {# Formulaire de connexion utilisant la méthode POST #}
     <form method="post">
         {# Si une erreur est présente, afficher un message d'alerte #}
