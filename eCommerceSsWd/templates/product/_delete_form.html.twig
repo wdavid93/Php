@@ -1,5 +1,16 @@
-<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+{# <form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
     <br>
     <button class="btn btn-danger">Delete</button>
+</form> #}
+
+{# Formulaire de suppression d'un produit utilisant la méthode POST #}
+<form method="post" action="{{ path('app_product_delete', {'id': product.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?(Are you sure you want to delete this item?)');">
+    {# Champ caché pour inclure le token CSRF afin de protéger le formulaire contre les attaques CSRF #}
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.id) }}">
+    
+    <br>
+    
+    {# Bouton de soumission du formulaire de suppression avec une classe de style danger #}
+    <button class="btn btn-danger">Supprimer/Delete</button>
 </form>

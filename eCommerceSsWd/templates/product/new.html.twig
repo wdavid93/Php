@@ -1,11 +1,22 @@
+{# On étend le template de base base.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}New Product{% endblock %}
+{# Début du bloc title, qui sera inséré dans la section titre du template de base #}
+{% block title %}
+    Nouveau produit
+{% endblock %}
 
+{# Début du bloc body, qui sera inséré dans la section corps du template de base #}
 {% block body %}
-    <h1>Create new Product</h1>
+    {# Titre de la page de création d'un nouveau produit #}
+    <h1>Créer un nouveau produit</h1>
 
+    {# Inclusion du formulaire de création de produit situé dans product/_form.html.twig #}
     {{ include('product/_form.html.twig') }}
+
+    {# Saut de ligne pour espacer les éléments #}
     <br>
-    <a href="{{ path('app_product_index') }}">back to list</a>
+
+    {# Lien pour revenir à la liste des produits #}
+    <a href="{{ path('app_product_index') }}">Retour à la liste</a>
 {% endblock %}

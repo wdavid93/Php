@@ -1,10 +1,17 @@
+{# On étend le template de base base.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Product{% endblock %}
+{# Début du bloc title, qui sera inséré dans la section titre du template de base #}
+{% block title %}
+    Détails du produit
+{% endblock %}
 
+{# Début du bloc body, qui sera inséré dans la section corps du template de base #}
 {% block body %}
-    <h1>Product</h1>
+    {# Titre de la page des détails du produit #}
+    <h1>Détails du produit</h1>
 
+    {# Tableau pour afficher les détails du produit sous forme de tableau #}
     <table class="table">
         <tbody>
             <tr>
@@ -12,7 +19,7 @@
                 <td>{{ product.id }}</td>
             </tr>
             <tr>
-                <th>Name</th>
+                <th>Nom</th>
                 <td>{{ product.name }}</td>
             </tr>
             <tr>
@@ -20,7 +27,7 @@
                 <td>{{ product.description }}</td>
             </tr>
             <tr>
-                <th>Price</th>
+                <th>Prix</th>
                 <td>{{ product.price }}</td>
             </tr>
             <tr>
@@ -30,11 +37,18 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_product_index') }}">back to list</a>
-    <br>
-    <br>
-    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-    <br>
-    <br>
+    {# Lien pour revenir à la liste des produits #}
+    <a href="{{ path('app_product_index') }}">Retour à la liste</a>
+    
+    {# Saut de ligne pour espacer les éléments #}
+    <br><br>
+    
+    {# Lien pour éditer le produit actuel #}
+    <a href="{{ path('app_product_edit', {'id': product.id}) }}">Éditer</a>
+    
+    {# Saut de ligne pour espacer les éléments #}
+    <br><br>
+    
+    {# Inclusion du formulaire de suppression de produit #}
     {{ include('product/_delete_form.html.twig') }}
 {% endblock %}

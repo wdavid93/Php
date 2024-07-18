@@ -1,5 +1,21 @@
-{{ form_start(form) }}
+{# {{ form_start(form) }}
     {{ form_widget(form) }}
     <br>
     <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }} #}
+
+{# Début du formulaire #}
+{{ form_start(form) }}
+
+    {# Affiche tous les champs du formulaire #}
+    {{ form_widget(form) }}
+
+    {# Saut de ligne pour espacer les éléments du formulaire #}
+    <br>
+
+    {# Bouton de soumission du formulaire avec une classe de style primaire #}
+    {# Utilise l'étiquette du bouton si elle est définie, sinon utilise "Enregistrer" par défaut #}
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+
+{# Fin du formulaire #}
 {{ form_end(form) }}

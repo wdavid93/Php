@@ -1,23 +1,38 @@
+{# On étend le template de base base.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{# Début du bloc title, qui sera inséré dans la section titre du template de base #}
+{% block title %}
+    Inscription
+{% endblock %}
 
+{# Début du bloc body, qui sera inséré dans la section corps du template de base #}
 {% block body %}
+    {# Boucle pour afficher les messages d'erreur de vérification de l'email #}
     {% for flash_error in app.flashes('verify_email_error') %}
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    {# Titre de la page d'inscription #}
+    <h1>Inscription</h1>
 
+    {# Affiche les erreurs du formulaire d'inscription #}
     {{ form_errors(registrationForm) }}
 
+    {# Début du formulaire d'inscription #}
     {{ form_start(registrationForm) }}
+        {# Champ de saisie pour l'email #}
         {{ form_row(registrationForm.email) }}
+        
+        {# Champ de saisie pour le mot de passe avec étiquette personnalisée #}
         {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
+            label: 'Mot de passe'
         }) }}
+        
+        {# Champ pour accepter les termes et conditions #}
         {{ form_row(registrationForm.agreeTerms) }}
 
-        <button type="submit" class="btn">Register</button>
+        {# Bouton de soumission du formulaire d'inscription #}
+        <button type="submit" class="btn">S'inscrire</button>
     {{ form_end(registrationForm) }}
 {% endblock %}

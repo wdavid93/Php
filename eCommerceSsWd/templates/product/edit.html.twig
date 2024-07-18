@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{# {% extends 'base.html.twig' %}
 
 {% block title %}Edit Product{% endblock %}
 
@@ -10,4 +10,34 @@
     <a href="{{ path('app_product_index') }}">back to list</a>
     <br>
     {{ include('product/_delete_form.html.twig') }}
+{% endblock %} #}
+
+{# On étend le template de base base.html.twig #}
+{% extends 'base.html.twig' %}
+
+{# Début du bloc title, qui sera inséré dans la section titre du template de base #}
+{% block title %}
+    Modifier le produit
 {% endblock %}
+
+{# Début du bloc body, qui sera inséré dans la section corps du template de base #}
+{% block body %}
+    {# Titre de la page de modification de produit #}
+    <h1>Modifier le produit</h1>
+
+    {# Inclusion du formulaire de produit avec l'étiquette de bouton "Update" #}
+    {{ include('product/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    
+    {# Saut de ligne pour espacer les éléments #}
+    <br>
+
+    {# Lien pour revenir à la liste des produits #}
+    <a href="{{ path('app_product_index') }}">Retour à la liste</a>
+    
+    {# Saut de ligne pour espacer les éléments #}
+    <br>
+
+    {# Inclusion du formulaire de suppression de produit #}
+    {{ include('product/_delete_form.html.twig') }}
+{% endblock %}
+
