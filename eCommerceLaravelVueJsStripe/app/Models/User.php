@@ -2,46 +2,69 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Order;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    // Utilisation des traits pour ajouter des fonctionnalités au modèle User
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Les attributs qui sont assignables en masse.
+     *
+     * Ces attributs peuvent être définis lors de la création ou de la mise à jour
+     * d'un utilisateur en utilisant la méthode `fill` ou `create`.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'name',     // Nom de l'utilisateur
+        'email',    // Adresse email de l'utilisateur
+        'password', // Mot de passe de l'utilisateur
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Les attributs qui devraient être cachés lors de la sérialisation.
+     *
+     * Ces attributs ne seront pas inclus dans les réponses JSON lorsque le modèle
+     * sera converti en une représentation JSON (par exemple, lors d'une API).
      *
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password',      // Mot de passe de l'utilisateur, ne sera pas inclus dans les réponses JSON
+        'remember_token', // Token de rappel pour la connexion persistante, ne sera pas inclus dans les réponses JSON
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Les attributs qui devraient être castés à un type spécifique.
      *
-     * @return array<string, string>
+     * Cela permet de convertir automatiquement les attributs à un format spécifique lorsque
+     * le modèle est accédé. Par exemple, convertir des dates en objets DateTime.
+     *
+     * @var array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime', // Convertit l'attribut 'email_verified_at' en une instance de DateTime
+    ];
+
+    /**
+     * Décrit la relation entre l'utilisateur et les commandes.
+     *
+     * Un utilisateur peut avoir plusieurs commandes. Cette méthode retourne une relation
+     * "a plusieurs" (HasMany) avec le modèle Order.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(): HasMany
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        // Retourne la relation "a plusieurs" (HasMany) entre User et Order
+        return $this->hasMany(Order::class);
     }
 }
