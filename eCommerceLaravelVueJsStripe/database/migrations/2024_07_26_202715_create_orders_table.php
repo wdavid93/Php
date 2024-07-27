@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('order_number'); // Numéro de la commande
+            $table->date('order_date'); // Date de la commande
             $table->timestamps();
         });
     }
