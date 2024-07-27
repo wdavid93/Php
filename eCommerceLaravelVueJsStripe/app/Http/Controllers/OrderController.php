@@ -40,8 +40,10 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
+         // Vérifie que l'utilisateur est authentifié
+        // $user = auth()->user();
         // Création d'un nouvel ordre pour l'utilisateur authentifié
-        $order = auth()->user()->orders()->create([
+        $order = auth()->user->orders()->create([
             'order_number' => uniqid() // Génération d'un numéro de commande unique
         ]);
 
