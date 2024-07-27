@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_number'); // Numéro de la commande
-            $table->date('order_date'); // Date de la commande
+            $table->dateTime('shipped_at')->nullable(); // Date de la commande
+            $table->enum('status', ['pending', 'success', 'cancelled'])
+                ->default('pending');
             $table->timestamps();
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

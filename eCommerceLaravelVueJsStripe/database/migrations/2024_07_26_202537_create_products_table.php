@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('price'); // Prix du produit
             $table->integer('quantity'); // Quantité en stock
             $table->string('sku')->unique(); // Référence unique du produit
+            $table->string('slug');
             $table->timestamps();
         });
     }
