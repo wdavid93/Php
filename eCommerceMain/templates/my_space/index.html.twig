@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon espace{% endblock %}
+
+{% block body %}
+    {% for flash_error in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+    {% for flash_success in app.flashes('success') %}
+        <div class="alert alert-success" role="alert">{{ flash_success }}</div>
+    {% endfor %}
+
+    <h1>Bonjour {{ firstname }} !</h1>
+    <br>
+    {% if verified is same as true %}
+    <div class="text">votre adresse email a été vérifiée ✅</div>
+    {% elseif verified is same as false %}
+    <div class="text">votre adresse email n'a pas été vérifiée ❌</div>
+    {% endif %}
+    <br>
+    <h2>Vos données personnelles :</h2>
+    <br>
+    <br>
+    <p>{{ name }} {{ firstname }}</p>
+    <p>{{ email }}</p>
+    <br>
+    <br>
+    {% if is_granted('ROLE_CUSTOMER') or is_granted('ROLE_CUSTOMER_FORMATION') or is_granted('ROLE_ADMIN') %}
+        <h2>Votre facture</h2>
+        <br>
+        {% if invoices is empty %}
+            <p>Vous n'avez pas encore de facture</p>
+            <br>
+        {% else %}
+            <ol>
+                {% for invoice in invoices %}
+                    <li class="text">{{ invoice }}</li>
+                {% endfor %}
+            </ol>
+            <br>
+        {% endif %}
+    {% endif %}
+    {% if is_granted('ROLE_CUSTOMER_FORMATION') or is_granted('ROLE_ADMIN') %}
+        <h2>Votre formation</h2>
+        <br>
+        <br>
+        <div class="text-center">
+            <a class="btn btn-success" href="{{asset('formationdev.zip')}}" download="formation.zip">Télécharger la formation</a>
+        </div>
+    {% endif %}
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('app_product_index')}}">gérer les produits</a>
+    {% endif %}
+{% endblock %}
