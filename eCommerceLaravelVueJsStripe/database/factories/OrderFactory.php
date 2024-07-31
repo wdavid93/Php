@@ -14,12 +14,22 @@ class OrderFactory extends Factory
      *
      * @return array<string, mixed>
      */
-    public function definition(): array    {
-        
+    public function definition()
+    {
+        // $table->string('order_number');
+        // $table->dateTime('shipped_at');
+        // $table->enum('status', ['pending', 'success', 'cancelled']);
+
         return [
-            'order_number' => uniqid(), // 'ORD-' . rand(10000, 99999), // Génère un numéro de commande aléatoire
-            'shipped_at' => now()->addDays(rand(1, 30)), // Définit une date d'expédition dans les 30 jours suivants
-            'status' => 'pending', // Définit un statut par défaut
+            'order_number' => $this->randomToken(8)
         ];
+    }
+
+    private function randomToken($length): string
+    {
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $token = substr(str_shuffle(str_repeat($pool, 5)), 0, $length);
+        
+        return $token;
     }
 }

@@ -12,59 +12,40 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    // Utilisation des traits pour ajouter des fonctionnalités au modèle User
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
-     * Les attributs qui sont assignables en masse.
-     *
-     * Ces attributs peuvent être définis lors de la création ou de la mise à jour
-     * d'un utilisateur en utilisant la méthode `fill` ou `create`.
+     * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',     // Nom de l'utilisateur
-        'email',    // Adresse email de l'utilisateur
-        'password', // Mot de passe de l'utilisateur
+        'name',
+        'email',
+        'password',
     ];
 
     /**
-     * Les attributs qui devraient être cachés lors de la sérialisation.
-     *
-     * Ces attributs ne seront pas inclus dans les réponses JSON lorsque le modèle
-     * sera converti en une représentation JSON (par exemple, lors d'une API).
+     * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',      // Mot de passe de l'utilisateur, ne sera pas inclus dans les réponses JSON
-        'remember_token', // Token de rappel pour la connexion persistante, ne sera pas inclus dans les réponses JSON
+        'password',
+        'remember_token',
     ];
 
     /**
-     * Les attributs qui devraient être castés à un type spécifique.
-     *
-     * Cela permet de convertir automatiquement les attributs à un format spécifique lorsque
-     * le modèle est accédé. Par exemple, convertir des dates en objets DateTime.
+     * The attributes that should be cast.
      *
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime', // Convertit l'attribut 'email_verified_at' en une instance de DateTime
+        'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * Décrit la relation entre l'utilisateur et les commandes.
-     *
-     * Un utilisateur peut avoir plusieurs commandes. Cette méthode retourne une relation
-     * "a plusieurs" (HasMany) avec le modèle Order.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function orders(): HasMany
     {
-        // Retourne la relation "a plusieurs" (HasMany) entre User et Order
         return $this->hasMany(Order::class);
     }
 }
